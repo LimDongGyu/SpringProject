@@ -30,9 +30,6 @@ public class FacebookOauth2Controller {
     @Value("${facebook_client_secret}")
     private String facebook_client_secret;  //본인 것으로 추가하기
 
-//
-//    private String facebook_client_id = "373798373357798";
-//    private String facebook_client_secret = "f3c9c80cd12b349961bc9c88ee6f978b";
 
     private static String facebook_authorization_endpoint = "https://www.facebook.com/dialog/oauth";
     private static String facebook_token_endpoint = "https://graph.facebook.com/v3.2/oauth/access_token";

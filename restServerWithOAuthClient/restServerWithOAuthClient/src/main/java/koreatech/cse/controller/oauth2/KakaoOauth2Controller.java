@@ -28,16 +28,11 @@ public class KakaoOauth2Controller {
     @Value("${kakao_rest_api_app_key}")
     String kakao_rest_api_app_key;
 
-//    private static String kakao_client_id = "c731143ebfe491b0531cdbcd87b09c33";      //본인 것으로 추가하기
-//    private static String kakao_client_secret = "gxkOeE8cv49uRDgcWIlmxkforTnz7sYl";  //본인 것으로 추가하기
-//    //미리 발급받아놓아야 하는 것
 
     //endpoint 3가지
     private static String kakao_authorization_endpoint = "https://kauth.kakao.com/oauth/authorize";
     private static String kakao_token_endpoint = "https://kauth.kakao.com/oauth/token"; //토큰을 발급 받기위한 토큰엔드포인트
     private static String kakao_redirect_uri = "http://localhost:8080/oauth/kakao_callback";
-
-//    public static String kakao_rest_api_app_key = "c731143ebfe491b0531cdbcd87b09c33";   //본인 것으로 추가하기
 
     //static 내용 수정은 재시작 해야함
 
