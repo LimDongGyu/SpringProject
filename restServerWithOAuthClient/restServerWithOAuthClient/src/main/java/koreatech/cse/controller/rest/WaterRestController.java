@@ -1,5 +1,6 @@
 package koreatech.cse.controller.rest;
 
+import koreatech.cse.domain.rest.Water;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -21,7 +22,32 @@ import java.util.List;
 @Controller
 public class WaterRestController {
     @Value("${water_service_key}")
-    String water_service_key;
+    static String water_service_key;
+
+    @RequestMapping("/water")
+    private static void getWater(){
+        System.out.println("Testing GET METHOD -----");
+
+        String strUrl = "http://api.data.go.kr/openapi/appn-mnrlsp-info-std";
+        strUrl += "?serviceKey=" + water_service_key;
+        strUrl += "&type=json";
+        strUrl += "&s_page=0";
+        strUrl += "&s_list=10";
+
+        System.out.println(strUrl);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        try{
+            ResponseEntity<Water> waterResponseEntity
+                    = restTemplate.getForEntity(strUrl, Water.class);
+
+            Water water = waterResponseEntity.getBody();
+            System.out.println(water);
+        }catch (HttpClientErrorException e){
+            System.out.println(e.getStatusCode() + ": " + e.getStatusText());
+        }
+    }
 
     @RequestMapping(value="/water/{instt_name}", method= RequestMethod.GET, produces = "application/json")
     public String springRequest(List list, @PathVariable String instt_name) throws IOException {
