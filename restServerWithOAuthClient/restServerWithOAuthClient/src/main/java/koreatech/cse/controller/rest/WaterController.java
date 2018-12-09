@@ -1,5 +1,7 @@
 package koreatech.cse.controller.rest;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,12 +10,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class WaterController {
+
+    @Value("${water_service_key}")
+    static String water_service_key;
+
     public static void main(String[] args) throws IOException {
+        String water_service_key2 = "=" + water_service_key;
+
         StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/tn_pubr_public_appn_mnrlsp_info_api"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=서비스키"); /*Service Key*/
+        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + water_service_key2); /*Service Key*/
+
         urlBuilder.append("&" + URLEncoder.encode("s_page","UTF-8") + "=" + URLEncoder.encode("0", "UTF-8")); /*조회 시작 지점*/
         urlBuilder.append("&" + URLEncoder.encode("s_list","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 번에 조회될 최대 row 갯수*/
+
         urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
+
         urlBuilder.append("&" + URLEncoder.encode("mnrlsp_nm","UTF-8") + "=" + URLEncoder.encode("88약수터", "UTF-8")); /*약수터명*/
         urlBuilder.append("&" + URLEncoder.encode("rdnmadr","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*소재지도로명주소*/
         urlBuilder.append("&" + URLEncoder.encode("lnmadr","UTF-8") + "=" + URLEncoder.encode("경기도 동두천시 생연동 산70번지", "UTF-8")); /*소재지지번주소*/
@@ -30,7 +41,7 @@ public class WaterController {
         urlBuilder.append("&" + URLEncoder.encode("instt_code","UTF-8") + "=" + URLEncoder.encode("3740000", "UTF-8")); /*제공기관코드*/
         urlBuilder.append("&" + URLEncoder.encode("instt_nm","UTF-8") + "=" + URLEncoder.encode("경기도 수원시", "UTF-8")); /*제공기관명*/
 
-        
+
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
