@@ -22,30 +22,33 @@ import java.util.List;
 @Controller
 public class WaterRestController {
     @Value("${water_service_key}")
-    static String water_service_key;
+    String water_service_key;
 
     @RequestMapping("/water")
-    private static void getWater(){
-        System.out.println("Testing GET METHOD -----");
+    public void getWater(){
+        System.out.println("Testing GET METHOD -----/water ");
 
         String strUrl = "http://api.data.go.kr/openapi/appn-mnrlsp-info-std";
         strUrl += "?serviceKey=" + water_service_key;
         strUrl += "&type=json";
         strUrl += "&s_page=0";
-        strUrl += "&s_list=10";
+        strUrl += "&s_list=1";
 
         System.out.println(strUrl);
 
         RestTemplate restTemplate = new RestTemplate();
 
         try{
+            System.out.println("try");
             ResponseEntity<Water> waterResponseEntity
                     = restTemplate.getForEntity(strUrl, Water.class);
-
             Water water = waterResponseEntity.getBody();
             System.out.println(water);
+            System.out.println("/try");
         }catch (HttpClientErrorException e){
+            System.out.println("catch");
             System.out.println(e.getStatusCode() + ": " + e.getStatusText());
+            System.out.println("/catch");
         }
     }
 
